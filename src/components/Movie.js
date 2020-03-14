@@ -1,21 +1,18 @@
 import React, { Component } from "react";
 import {
     StyleSheet,
-    View,
     Text,
-    Image,
     TouchableOpacity
 } from 'react-native';
 
 
 class Movie extends Component {
-
-
     render() {
         const { itemData, navigation } = this.props
+        console.log(this.props);
 
         return (
-            <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('MovieScreen', itemData)}>
+            <TouchableOpacity style={styles.container} onPress={() => navigation ? navigation.navigate('MovieScreen', itemData) : itemData}>
                 <Text style={styles.movieName}>{itemData.title}</Text>
             </TouchableOpacity>
         )

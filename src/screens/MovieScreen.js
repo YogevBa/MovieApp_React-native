@@ -32,20 +32,39 @@ class MovieScreen extends Component {
         }
     }
 
+    renderBtnsCondition = (favorites, navigation) => {
+        const checkFavorited = favorites.filter(movie => movie.id == navigation.state.params.id)
+        if (checkFavorited.length > 0) {
+            return (
+                
+                    <TouchableOpacity style={styles.removeBtn} onPress={() => this.setFavorites('remove', navigation.state.params)
+                    }>
+                        <Text style={{ fontSize: 18, color:'white' }}>Remove From Favorites ?
+               </Text>
+                    </TouchableOpacity>
+               
+            )
+        } else {
+            return (
+              
+                    <TouchableOpacity style={styles.addBtn} onPress={() => this.setFavorites('add', navigation.state.params)}>
+                        <Text style={{ fontSize: 18,color:'white' }}>Add To Favorites ?</Text>
+                    </TouchableOpacity>
+              
+            )
+        }
+    }
+
     render() {
-        const { navigation } = this.props
+        const { navigation, favorites } = this.props
+        console.log(navigation.state.params);
+
+
+
         return (
             <View style={styles.movieScreenWrapper}>
                 <View style={styles.btnsWrapper}>
-                    <TouchableOpacity style={styles.removeBtn} onPress={() => this.setFavorites('remove', navigation.state.params)
-                    }>
-                        <Text style={{ fontSize: 18 }}>-
-                       </Text>
-                    </TouchableOpacity>
-                    <Text style={{ fontSize: 18 }}>Add To Favorites?</Text>
-                    <TouchableOpacity style={styles.addBtn} onPress={() => this.setFavorites('add', navigation.state.params)}>
-                        <Text style={{ fontSize: 18 }}>+</Text>
-                    </TouchableOpacity>
+                    {this.renderBtnsCondition(favorites, navigation)}
                 </View>
                 <View style={styles.movieContainer}>
                     <Text style={styles.movieTitle}>{navigation.getParam('title')}</Text>
@@ -83,17 +102,18 @@ const styles = StyleSheet.create({
 
     },
     addBtn: {
-        backgroundColor: '#3CFF00',
-        borderRadius: 50,
-        width: 50,
+        backgroundColor: '#3b5998',
+        borderRadius: 10,
+        width: '50%',
         height: 50,
         alignItems: 'center',
         justifyContent: 'center'
     },
     removeBtn: {
         backgroundColor: 'red',
-        borderRadius: 50,
-        width: 50,
+        
+        borderRadius: 10,
+        width: '55%',
         height: 50,
         alignItems: 'center',
         justifyContent: 'center'

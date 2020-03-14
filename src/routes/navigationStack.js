@@ -17,13 +17,13 @@ const screens = {
     Home: {
         screen: HomeScreen,
         navigationOptions: {
-            headerTitle: () => <Header title={'Movie List'}/>
+            headerTitle: ({navigation}) => <Header title={'Movie List'} navigation={navigation}/>
         }
     },
     MovieScreen: {
         screen: MovieScreen,
         navigationOptions: {
-            headerTitle: () => <Header title={'Movie Details'}/>
+            headerTitle: ({navigation}) => <Header title={'Movie Details'}  navigation={navigation}/>
         }
     }
 }

@@ -1,33 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     View,
     Text,
-    TouchableOpacity,
-    Modal
+    TouchableOpacity
 } from 'react-native';
+import FavoritesModal from '../components/FavoritesModal'
 import { connect } from 'react-redux'
 
 
 const Header = (props) => {
-
-    const showModal = () => {
-        return <Modal><Text>hello</Text></Modal>
-    }
-
+    const {navigation,title} = props
     return (
         <View style={styles.header}>
             <View>
-                <Text style={styles.headerText}>{props.title}</Text>
+                <Text style={styles.headerText}>{title}</Text>
             </View>
-            <TouchableOpacity style={styles.btn} onPress={() => showModal}>
-                <View style={styles.favoriteBtn}>
-                    <Text style={{ fontSize: 40 }}>⭐</Text>
-                    <Text style={styles.identifier}>{props.favorites.length}
-                    </Text>
-                </View>
-
-            </TouchableOpacity>
+            <FavoritesModal navigation={navigation}/>
         </View>
     )
 
@@ -46,7 +35,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'black',
         letterSpacing: 1,
-        marginHorizontal:70
+        marginHorizontal: 70
     },
     favoriteBtn: {
         fontSize: 35,

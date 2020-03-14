@@ -1,6 +1,6 @@
 
 
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -8,6 +8,8 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { LoginButton, AccessToken } from 'react-native-fbsdk'
 
 const LogInScreen = ({ navigation }) => {
     const [isLoggedIn, setLoggedIn] = useState(false);
@@ -24,20 +26,48 @@ const LogInScreen = ({ navigation }) => {
                 {isLoggedIn ? <Text>{user.profile.name}</Text> : <Text style={{ fontSize: 30 }}>Stranger</Text>}
 
                 <View style={styles.circle}>
-                    <Image
+                    {/* <Image
                         style={{ width: '75%', height: '75%', resizeMode: 'stretch' }}
                         source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-                    />
+                    /> */}
                 </View>
+                <Text style={{color:'red'}}>facebook log in doesn't work</Text>
+                <Text>Please use the free pass button to get into the App</Text>
             </View>
 
             <View style={styles.footer}>
                 <TouchableOpacity onPress={signIn}>
-                    <Text>Google Log-In</Text>
+                    <Icon.Button
+                        name="google"
+                        backgroundColor="#ff0000"
+                        onPress={signIn}
+                        style={{height:30}}
+                    >
+                        Free pass to App
+                        </Icon.Button>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={signIn}>
-                    <Text>Facebook Log-In</Text>
-                </TouchableOpacity>
+                <LoginButton
+                    onLoginFinished={
+                        (error, result) => {
+                            if (error) {
+                                console.log('login failed: ' + result.error);
+
+                            } else if (result.isCancelled) {
+                                console.log('login cancelled.');
+
+                            } else {
+                                AccessToken.getCurrentAccessToken().then(
+                                    (data) => {
+                                        console.log(data.accessToken.toString())
+
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    onLogoutFinished={() => console.log('logout.')
+                    }
+                />
             </View>
         </View>
     );
